@@ -21,17 +21,24 @@ from PIL import Image, ImageDraw
 
 
 #-------------------------------------------------------------------
+# Symbolic values and flags.
+#-------------------------------------------------------------------
+VERBOSE = False
+
+
+#-------------------------------------------------------------------
 # main()
 #
 # Test the bitcounter.
 #-------------------------------------------------------------------
 def main():
     color_depth = 7
-    num_hues = 2**6
+    num_hues = 2**color_depth
     num_pixels = 2**(color_depth * 3)
     print("Number of pixels: %d" % num_pixels)
     dimension = int(math.sqrt(num_pixels))
     print("Image dimension: %dx%d" % (dimension, dimension))
+    print("Generating...")
 
     im = Image.new('RGB', (dimension, dimension), (0, 0, 0))
     draw = ImageDraw.Draw(im)
@@ -66,8 +73,10 @@ def main():
             if g == num_hues:
                 g = 0
                 b += 1
-        print("x = %d, y = %d, r = %d, g = %d, b = %d" % (x, y, r, g, b))
+        if VERBOSE:
+            print("x = %d, y = %d, r = %d, g = %d, b = %d" % (x, y, r, g, b))
     
+    print("Done.")
     im.show()
 
 #-------------------------------------------------------------------
